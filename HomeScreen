@@ -1,0 +1,44 @@
+package shootGhosts;  // name taken from video
+
+import java.awt.Graphics;   //For display
+import java.io.File;    // For Audio
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip; // this and above for audio, below for image
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class HomeScreen extends JPanel{
+	
+	JFrame window = new JFrame();
+	
+	HomeScreen(){
+		window.add(this);
+		
+		
+		try{
+			File sound = new File("Sounds//Watertitle.wav");  //source of audio file
+		
+		AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+		Clip clip = AudioSystem.getClip();
+		clip.open(ais);
+		clip.start();
+		}
+			catch(Exception e){System.out.println("GG noobie");} //this is for .wav
+		
+		window.setSize(884, 574);
+		window.setVisible(true); // window creation
+		
+	}
+	
+	
+	public void paint(Graphics g){
+		
+		ImageIcon background = new ImageIcon("Images//Titlescreen.png"); //display source
+		
+		g.drawImage(background.getImage(),0,0,null);
+	}
+
+}
