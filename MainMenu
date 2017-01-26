@@ -1,0 +1,99 @@
+package shootGhosts;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class MainMenu extends JPanel implements ActionListener, KeyListener {
+	
+	JFrame window = new JFrame();
+	JButton playButton = new JButton();
+	JButton exitButton = new JButton();	
+	JLabel infoLabel = new JLabel(); //can also use JLabel for imgs
+	JButton fourplayButton = new JButton();
+	JButton nickButton = new JButton();
+	
+	Font customFont = new Font("Italic", Font.ITALIC, 22);
+	
+	MainMenu(){
+		
+		this.setBackground(Color.white);
+		this.setForeground(Color.white);
+		window.add(this);
+		
+		playButton.setBackground(Color.white);
+		playButton.setIcon(new ImageIcon("Images//playbutton.png"));
+		playButton.addActionListener(this);
+		playButton.addKeyListener(this);
+		window.add(playButton);
+		
+		fourplayButton.setBackground(Color.white);
+		fourplayButton.setIcon(new ImageIcon("Images//4play.png"));
+		fourplayButton.addActionListener(this);
+		fourplayButton.addKeyListener(this);
+		window.add(fourplayButton, BorderLayout.EAST);
+		
+		nickButton.setBackground(Color.white);
+		nickButton.setIcon(new ImageIcon("Images//nickhub.png"));
+		nickButton.addActionListener(this);
+		nickButton.addKeyListener(this);
+		window.add(nickButton, BorderLayout.WEST);
+		
+		exitButton.setBackground(Color.white);
+		exitButton.setIcon(new ImageIcon("Images//quitbutton.png"));
+		exitButton.addActionListener(this);
+		exitButton.addKeyListener(this);
+		window.add(exitButton, BorderLayout.PAGE_END); //above are all buttons, made with imgs from microsoft paint
+		
+		infoLabel.setText("Press 's' to shoot and use the arrow keys to move");
+		infoLabel.setFont(customFont);
+		infoLabel.setOpaque(true);
+		infoLabel.setBackground(Color.WHITE);
+		infoLabel.setForeground(Color.BLACK);
+		window.add(infoLabel, BorderLayout.NORTH); //simple label for describing controls
+		
+		
+		//window.setUndecorated(true);//makes top bar disappear
+		window.setSize(884, 574); //make sure this is size of used image
+		window.setVisible(true); //makes window appear
+	}
+
+	@Override
+	public void keyPressed(KeyEvent kp) {
+		if(kp.getKeyCode() == KeyEvent.VK_ESCAPE){ //sets escape as close method
+			window.dispose();
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource() == exitButton){ // link clicking the exitButton to closing the game
+			window.dispose();
+		}
+		
+		
+	}
+}
