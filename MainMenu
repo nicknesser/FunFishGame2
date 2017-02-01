@@ -53,14 +53,14 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener {
 		exitButton.setIcon(new ImageIcon("Images//quitbutton.png"));
 		exitButton.addActionListener(this);
 		exitButton.addKeyListener(this);
-		window.add(exitButton, BorderLayout.PAGE_END); //above are all buttons, made with imgs from microsoft paint
+		window.add(exitButton, BorderLayout.PAGE_END);
 		
 		infoLabel.setText("Press 's' to shoot and use the arrow keys to move");
 		infoLabel.setFont(customFont);
 		infoLabel.setOpaque(true);
 		infoLabel.setBackground(Color.WHITE);
 		infoLabel.setForeground(Color.BLACK);
-		window.add(infoLabel, BorderLayout.NORTH); //simple label for describing controls
+		window.add(infoLabel, BorderLayout.NORTH);
 		
 		
 		//window.setUndecorated(true);//makes top bar disappear
@@ -72,6 +72,11 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent kp) {
 		if(kp.getKeyCode() == KeyEvent.VK_ESCAPE){ //sets escape as close method
 			window.dispose();
+		}
+		
+		else if(kp.getKeyCode() == KeyEvent.VK_ENTER){
+			window.dispose();
+			LevelWindow lw = new LevelWindow();
 		}
 		
 	}
@@ -90,10 +95,14 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == exitButton){ // link clicking the exitButton to closing the game
+		if(ae.getSource() == exitButton){
 			window.dispose();
 		}
 		
+		else if(ae.getSource() == playButton){
+			window.dispose();
+			LevelWindow lw = new LevelWindow();
+		}
 		
 	}
 }
