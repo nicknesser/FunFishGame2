@@ -1,0 +1,9 @@
+package shootGhosts;
+
+public class RealMain {
+
+	public static void main(String[] args) {
+		HomeScreen hs = new HomeScreen();
+	}
+
+}
