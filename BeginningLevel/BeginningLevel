@@ -1,0 +1,187 @@
+package shootGhosts;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class BeginningLevel extends JPanel implements KeyListener {
+	
+	
+	JFrame window = new JFrame("Beginning - Fun Fish Game 2");
+	
+	BubbleBlast fish = new BubbleBlast(400, 500, "Images//drawnfish.png");
+	
+	Beginning [][] can = new Beginning[2][11]; //soda can named improperly
+	int xaxis = 0;
+	int yaxis = 0;
+	
+	Bubbles[] bubbles = new Bubbles[1000];
+	int count = 0;
+	
+	CanFall cf = new CanFall(this, can);
+	
+	private boolean fail = false;
+	
+	private Clip clip;
+	
+	BeginningLevel(){
+		
+		this.setFocusable(true);
+		this.addKeyListener(this);
+		
+		window.add(this);
+		
+		try{
+			File sound = new File("Sounds//Dory.wav");  //source of audio file
+		
+		AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+		clip = AudioSystem.getClip();
+		clip.open(ais);
+		clip.start();
+		}
+			catch(Exception e){System.out.println("GG noobie");}
+		
+		for(int i = 0; i < can.length; i++){
+			
+			for(int j = 0; j < can[i].length; j++){
+				
+				can[i][j] = new Beginning(xaxis, yaxis, "Images//sodacan.png");
+				xaxis += 100;
+			}
+			yaxis += 75;
+			xaxis = 0;
+		}
+		
+		cf.start();
+		
+		for(int i = 0; i < bubbles.length; i++){
+			
+			bubbles[i] = new Bubbles(1000, 1000, "Images//bbubble.png");
+		}
+		
+		window.setSize(1078, 765);
+		window.setVisible(true);
+		
+	}
+	
+	public void paint(Graphics g){
+		ImageIcon background = new ImageIcon("Images//br1.png");
+		g.drawImage(background.getImage(), 0, 0, null);
+		
+		fish.drawBubbleBlast(g);
+		
+		for(int i = 0; i < can.length; i++){
+			
+			for(int j = 0; j < can[i].length; j++){
+				
+				can[i][j].drawCan(g); 
+			}
+		}
+		
+		for(int i = 0; i < bubbles.length; i++){
+			
+			bubbles[i].drawBubbles(g);
+		}
+		
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("", Font.BOLD, 22));
+		g.drawString("Score = " + Shoot.score, 900, 500);
+		
+		GameOver();
+		Victory();
+	
+	}
+	
+	public void Victory(){
+		if(Shoot.score >= 22){
+			cf.stop();
+			window.dispose();
+			clip.close();
+			JOptionPane.showMessageDialog(null, "Great work, but there's more to be done!");
+	        LevelWindow lw = new LevelWindow();	
+		}
+	}
+	
+	public void GameOver(){
+		for(int i = 0; i < can.length; i++){
+			for(int j = 0; j < can[i].length; j++){
+				if(can[i][j].getYaxis() > 350){
+					fail = true;
+				    
+					break;
+				}
+			}
+		}
+	
+		if(fail == true){
+			clip.close();
+			cf.stop();
+			window.dispose();
+			MainMenu mm = new MainMenu();
+			JOptionPane.showMessageDialog(null, "RIP Fish, pollution has won...");
+			
+		}
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent kp) {
+		if(kp.getKeyCode() == KeyEvent.VK_RIGHT){
+			if(fish.getXaxis() < 900){
+				fish.setXaxis(fish.getXaxis() + 5);
+			}
+			this.repaint();
+		}
+		else if(kp.getKeyCode() == KeyEvent.VK_LEFT){
+			if(fish.getXaxis() > -150){
+				fish.setXaxis(fish.getXaxis() - 5);
+			}
+			this.repaint();	
+		}
+		
+		else if(kp.getKeyCode() == KeyEvent.VK_S){
+			
+			try{
+				File bub = new File("Sounds//bub.wav");  //source of audio file
+			
+			AudioInputStream ais = AudioSystem.getAudioInputStream(bub);
+			Clip cli = AudioSystem.getClip();
+			cli.open(ais);
+			cli.start();
+			}
+				catch(Exception e){System.out.println("GG noobie");}
+			
+			Shoot s = new Shoot(bubbles[count],this,can);
+			bubbles[count].setXaxis(fish.getXaxis() + 133);
+			bubbles[count].setYaxis(500);
+			s.start();
+			count++;
+		}
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
