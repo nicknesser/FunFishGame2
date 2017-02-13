@@ -1,0 +1,33 @@
+package shootGhosts;
+
+public class BottleFallT extends Thread {
+    
+	Turmoil tl;
+	Bottle[][] bottle;
+	
+	BottleFallT(Turmoil tl, Bottle[][] bottle){
+		
+		this.bottle = bottle;
+		this.tl = tl;
+		
+		
+	}
+	
+	
+	public void run(){
+		while(bottle[0][0].getYaxis() < 700)
+		for(int i = 0; i < bottle.length; i++){
+			for(int j = 0; j < bottle[i].length; j++){
+				bottle[i][j].setYaxis(bottle[i][j].getYaxis() + 30);
+			}
+		
+	   try{
+		   Thread.sleep(1800);
+	   } catch (Exception e){System.out.println(e);}
+		tl.repaint();
+		
+	}
+	}
+	
+}
+
