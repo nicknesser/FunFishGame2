@@ -1,0 +1,52 @@
+package shootGhosts;
+
+import java.awt.Graphics;
+
+import javax.swing.ImageIcon;
+
+public class BubbleBlast {
+	private int xaxis;
+	private int yaxis;
+	private String imagePath;
+	
+	public int getXaxis() {
+		return xaxis;
+	}
+
+	public void setXaxis(int xaxis) {
+		this.xaxis = xaxis;
+	}
+
+	public int getYaxis() {
+		return yaxis;
+	}
+
+	public void setYaxis(int yaxis) {
+		this.yaxis = yaxis;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
+
+	public BubbleBlast(int xaxis, int yaxis, String imagePath) {
+		super();
+		this.xaxis = xaxis;
+		this.yaxis = yaxis;
+		this.imagePath = imagePath;
+	}
+	
+	public void drawBubbleBlast(Graphics g){
+		ImageIcon img = new ImageIcon(imagePath);
+		g.drawImage(img.getImage(), xaxis, yaxis, null);
+	}
+	
+}
