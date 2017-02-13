@@ -28,9 +28,14 @@ public class HomeScreen extends JPanel{
 		}
 			catch(Exception e){System.out.println("GG noobie");} //this is for .wav
 		
-		window.setSize(884, 574);
+		window.setSize(884, 574); //make sure this is size of used image
 		window.setVisible(true); // window creation
-		
+		try{
+			Thread.sleep(4000); //keep window open for 4000 ms
+			window.dispose(); //close window
+			MainMenu m = new MainMenu();//this is to ensure MainMenu is opened next
+		}
+			catch(Exception e) {System.out.println(e);}
 	}
 	
 	
