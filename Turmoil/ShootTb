@@ -1,0 +1,54 @@
+package shootGhosts;
+
+import java.awt.Rectangle;
+
+public class ShootTb extends Thread {
+	
+	Bubbles bubbles;
+	Turmoil tl;
+	Bottle[][] bottle; //added
+	public static int score = 0; //static can be used anywhere
+	
+	ShootTb(Bubbles bubbles, Turmoil tl, Bottle[][] bottle){//added
+		this.bubbles = bubbles;
+		this.tl = tl;
+		this.bottle = bottle;
+	}
+	
+	ShootTb(Bubbles bubbles, Bottle[][] bottle){ //added
+		this.bubbles = bubbles;
+		this.bottle = bottle;
+	}
+	
+	@Override
+	public void run(){
+		while(bubbles.getYaxis() > -100){
+			bubbles.setYaxis(bubbles.getYaxis() - 10);
+			checkCollisionb();
+			
+			try{
+				Thread.sleep(100);
+			} catch (InterruptedException e){
+				e.printStackTrace();
+			}
+			tl.repaint();
+		}
+		
+	}
+	
+	public void checkCollisionb(){
+		Rectangle bubbleRect = new Rectangle(bubbles.getXaxis(), bubbles.getYaxis(), 27, 24);
+		
+		for(int i = 0; i < bottle.length; i++){ //added
+			for(int j = 0; j < bottle[i].length; j++){
+				Rectangle botRect = new Rectangle(bottle[i][j].getXaxis(), bottle[i][j].getYaxis(), 51, 61);
+			    if(bubbleRect.intersects(botRect)){
+			    	bottle[i][j].setXaxis(10000);
+			    	bubbles.setXaxis(-10000);
+			    	score++;
+			    }
+			}
+		}
+	}
+
+}
