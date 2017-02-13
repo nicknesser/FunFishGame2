@@ -65,11 +65,13 @@ public class LevelWindow extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		else if(kp.getKeyCode() == KeyEvent.VK_ENTER&&Levels.getSelectedIndex() == 0){
-			JOptionPane.showMessageDialog(null, "Levels not ready");
+			window.dispose();
+			BeginningLevel bl = new BeginningLevel();
 		}
 		
 		else if(kp.getKeyCode() == KeyEvent.VK_ENTER&&Levels.getSelectedIndex() == 1){
-			JOptionPane.showMessageDialog(null, "Ugh, again");
+			window.dispose();
+			Turmoil tl = new Turmoil();
 		}
 		
 		else if(kp.getKeyCode() == KeyEvent.VK_ENTER&&Levels.getSelectedIndex() == 2){
@@ -104,11 +106,13 @@ public class LevelWindow extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		else if(ae.getSource() == enterButton&&Levels.getSelectedIndex() == 0){
-			JOptionPane.showMessageDialog(null, "Levels under construction");
+			window.dispose();
+			BeginningLevel bl = new BeginningLevel();
 		}
 		
 		else if(ae.getSource() == enterButton&&Levels.getSelectedIndex() == 1){
-			JOptionPane.showMessageDialog(null, "I said it's under construction");
+			window.dispose();
+			Turmoil tl = new Turmoil();
 		}
 		
 		else if(ae.getSource() == enterButton&&Levels.getSelectedIndex() == 2){
