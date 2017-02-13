@@ -1,0 +1,54 @@
+package shootGhosts;
+
+import java.awt.Rectangle;
+
+public class Shoot extends Thread {
+	
+	Bubbles bubbles;
+	BeginningLevel bl;
+	Beginning[][] can;
+	public static int score = 0; //static can be used anywhere
+	
+	Shoot(Bubbles bubbles, BeginningLevel bl, Beginning[][] can){
+		this.bubbles = bubbles;
+		this.bl = bl;
+		this.can = can;
+	}
+	
+	Shoot(Bubbles bubbles, Beginning[][] can){
+		this.bubbles = bubbles;
+		this.can = can;
+	}
+	
+	@Override
+	public void run(){
+		while(bubbles.getYaxis() > -100){
+			bubbles.setYaxis(bubbles.getYaxis() - 10);
+			checkCollision();
+			
+			try{
+				Thread.sleep(100);
+			} catch (InterruptedException e){
+				e.printStackTrace();
+			}
+			bl.repaint();
+		}
+		
+	}
+	
+	public void checkCollision(){
+		Rectangle bubbleRect = new Rectangle(bubbles.getXaxis(), bubbles.getYaxis(), 27, 24);
+        
+		for(int i = 0; i < can.length; i++){
+			for(int j = 0; j < can[i].length; j++){
+				Rectangle canRect = new Rectangle(can[i][j].getXaxis(), can[i][j].getYaxis(), 45, 46);
+			    if(bubbleRect.intersects(canRect)){
+			    	can[i][j].setXaxis(10000);
+			    	bubbles.setXaxis(-10000);
+			    	score++;
+			    }
+			}
+		}
+	}
+
+}
