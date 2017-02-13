@@ -1,0 +1,32 @@
+package shootGhosts;
+
+public class CanFallT extends Thread {
+    
+	Turmoil tl;
+	Beginning[][] can;
+	
+	CanFallT(Turmoil tl, Beginning[][] can){
+		
+		this.can = can;
+		this.tl = tl;
+		
+		
+	}
+	
+	
+	public void run(){
+		while(can[0][0].getYaxis() < 700)
+		for(int i = 0; i < can.length; i++){
+			for(int j = 0; j < can[i].length; j++){
+				can[i][j].setYaxis(can[i][j].getYaxis() + 20);
+			}
+		
+	   try{
+		   Thread.sleep(900);
+	   } catch (Exception e){System.out.println(e);}
+		tl.repaint();
+		
+	}
+	}
+	
+}
